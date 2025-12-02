@@ -1,24 +1,20 @@
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StyleSheet, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import React from 'react';
+import { Provider } from 'react-redux';
+import Root from './src/routes/Root';
+import store, { persistor } from './src/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import AppPopUp, { AppPopUpRef } from './src/components/AppPopUp';
+export const appPopUpRef = React.createRef<AppPopUpRef>();
 
-function App() {
-  const safeAreaInsets = useSafeAreaInsets();
-
+const App = () => {
   return (
-    <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
-      />
-    </View>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <Root />
+        <AppPopUp ref={appPopUpRef} />
+      </PersistGate>
+    </Provider>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
+};
 
 export default App;
