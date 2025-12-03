@@ -1,5 +1,8 @@
 import { forwardRef, useImperativeHandle, useState } from 'react';
-import { Button, Modal, StyleSheet, Text, View } from 'react-native';
+import { Modal, StyleSheet, Text, View } from 'react-native';
+import { colors } from '../../config/colors';
+import CustomButton from '../CustomButton';
+import { normalize } from '../../utils/normalize';
 
 export type AppPopUpRef = {
   show: (cfg: PopUpConfig) => void;
@@ -45,8 +48,16 @@ const AppPopUp = forwardRef((_, ref) => {
         <View style={styles.innerView}>
           <Text>{config.title}</Text>
           <View style={styles.buttonContainer}>
-            <Button title="Ok" onPress={handleOnSubmit} />
-            <Button title="Cancel" onPress={handleOnCancel} />
+            <CustomButton
+              title="Ok"
+              onPress={handleOnSubmit}
+              style={styles.buttonStyle}
+            />
+            <CustomButton
+              title="Cancel"
+              onPress={handleOnCancel}
+              style={styles.buttonStyle}
+            />
           </View>
         </View>
       </View>
@@ -57,15 +68,22 @@ export default AppPopUp;
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.4)',
+    backgroundColor: colors.modalBackground,
     justifyContent: 'center',
   },
   innerView: {
-    backgroundColor: 'red',
+    backgroundColor: colors.white,
     padding: 20,
     marginHorizontal: 20,
   },
   buttonContainer: {
+    // flex:1,
     flexDirection: 'row',
+    width: '100%',
+    gap: normalize(12),
+    justifyContent: 'center',
+  },
+  buttonStyle: {
+    width: '46%',
   },
 });
