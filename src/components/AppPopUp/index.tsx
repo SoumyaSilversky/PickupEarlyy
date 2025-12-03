@@ -11,6 +11,8 @@ type PopUpConfig = {
   message?: string;
   submitText?: string;
   cancelText?: string;
+  onSubmit?: () => void;
+  onCancel?: () => void;
 };
 
 const AppPopUp = forwardRef((_, ref) => {
@@ -27,12 +29,25 @@ const AppPopUp = forwardRef((_, ref) => {
     hide: () => setVisible(false),
   }));
 
+  const handleOnSubmit = () => {
+    setVisible(false);
+    config?.onSubmit?.();
+  };
+
+  const handleOnCancel = () => {
+    setVisible(false);
+    config?.onCancel?.();
+  };
+
   return (
     <Modal visible={visible} animationType={'fade'} statusBarTranslucent>
       <View style={styles.root}>
         <View style={styles.innerView}>
           <Text>{config.title}</Text>
-          <Button title="Ok" onPress={() => setVisible(false)} />
+          <View style={styles.buttonContainer}>
+            <Button title="Ok" onPress={handleOnSubmit} />
+            <Button title="Cancel" onPress={handleOnCancel} />
+          </View>
         </View>
       </View>
     </Modal>
@@ -48,5 +63,9 @@ const styles = StyleSheet.create({
   innerView: {
     backgroundColor: 'red',
     padding: 20,
+    marginHorizontal: 20,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
   },
 });

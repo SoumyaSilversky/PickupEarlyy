@@ -1,15 +1,21 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React from 'react';
 import { appPopUpRef } from '../../../../App';
+import CustomButton from '../../../components/CustomButton';
+import { CustomText700 } from '../../../components/Typography';
 
 const LoginScreen = () => {
   return (
     <View style={styles.root}>
-      <Text>LoginScreen</Text>
-      <Button
+      <CustomText700>LoginScreen</CustomText700>
+      <CustomButton
         title="Open Modal"
         onPress={() =>
-          appPopUpRef.current?.show({ title: 'Hari Hey', message: 'Nara' })
+          appPopUpRef.current?.show({
+            title: 'Hari Hey',
+            message: 'Nara',
+            onSubmit: () => console.log('Hii there Ok is pressed'),
+          })
         }
       />
     </View>
