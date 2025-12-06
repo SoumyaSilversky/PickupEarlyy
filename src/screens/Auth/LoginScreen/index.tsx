@@ -7,8 +7,12 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { normalize } from '../../../utils/normalize';
 import { colors } from '../../../config/colors';
 import CustomTextInput from '../../../components/CustomTextInput';
+import {
+  RootStackProps,
+  StackNavigationScreen,
+} from '../../../routes/ScreenParams';
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }: RootStackProps<'LogInScreen'>) => {
   const { top } = useSafeAreaInsets();
   const [formaValues, setFormValues] = useState({
     email: '',
@@ -40,7 +44,8 @@ const LoginScreen = () => {
           appPopUpRef.current?.show({
             title: 'Hari Hey',
             message: 'Nara',
-            onSubmit: () => console.log('Hii there Ok is pressed'),
+            onSubmit: () =>
+              navigation.navigate(StackNavigationScreen.HomeScreen),
           })
         }
       />
@@ -54,6 +59,7 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     paddingHorizontal: normalize(12),
+    justifyContent: 'center',
   },
   titleText: {
     fontSize: normalize(18, 'height'),

@@ -1,8 +1,9 @@
 import { forwardRef, useImperativeHandle, useState } from 'react';
-import { Modal, StyleSheet, Text, View } from 'react-native';
+import { Modal, StyleSheet, View } from 'react-native';
 import { colors } from '../../config/colors';
 import CustomButton from '../CustomButton';
 import { normalize } from '../../utils/normalize';
+import { CustomText400, CustomText500 } from '../Typography';
 
 export type AppPopUpRef = {
   show: (cfg: PopUpConfig) => void;
@@ -11,7 +12,7 @@ export type AppPopUpRef = {
 
 type PopUpConfig = {
   title: string;
-  message?: string;
+  message: string;
   submitText?: string;
   cancelText?: string;
   onSubmit?: () => void;
@@ -22,6 +23,7 @@ const AppPopUp = forwardRef((_, ref) => {
   const [visible, setVisible] = useState<boolean>(false);
   const [config, setConfig] = useState<PopUpConfig>({
     title: '',
+    message: '',
   });
 
   useImperativeHandle(ref, () => ({
@@ -46,15 +48,16 @@ const AppPopUp = forwardRef((_, ref) => {
     <Modal visible={visible} animationType={'fade'} statusBarTranslucent>
       <View style={styles.root}>
         <View style={styles.innerView}>
-          <Text>{config.title}</Text>
+          <CustomText500>{config.title}</CustomText500>
+          <CustomText400>{config.message}</CustomText400>
           <View style={styles.buttonContainer}>
             <CustomButton
-              title="Ok"
+              title={config.submitText ?? 'Ok'}
               onPress={handleOnSubmit}
               style={styles.buttonStyle}
             />
             <CustomButton
-              title="Cancel"
+              title={config.cancelText ?? 'Cancel'}
               onPress={handleOnCancel}
               style={styles.buttonStyle}
             />
