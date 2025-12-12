@@ -25,13 +25,7 @@ export const styles = StyleSheet.create({
     padding: 10,
     flexDirection: 'row',
     marginHorizontal: 10,
-    alignItems: 'center',
-    gap: 10,
-  },
-  button: {
-    borderWidth: 1,
-    padding: 10,
-    borderRadius: 50,
+    alignItems:'center',gap:10
   },
   flatListItem: {
     width: 60,

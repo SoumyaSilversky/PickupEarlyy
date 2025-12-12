@@ -3,7 +3,7 @@ import { Text, TextProps } from 'react-native';
 import { styles } from './styles';
 
 interface CustomTextProps extends TextProps {
-  children: string;
+  children?: string | number | React.ReactNode;
 }
 
 export const CustomText100 = memo(

@@ -1,26 +1,36 @@
-import { FlatList, Text, View } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import { FlatList, TouchableOpacity, View } from 'react-native';
+import React from 'react';
 import { styles } from './styles';
-import ShimmerPlaceholder from '../../components/ShimmerPlaceholder';
 import { CustomText500 } from '../../components/Typography';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import {
+  RootStackProps,
+  StackNavigationScreen,
+} from '../../routes/ScreenParams';
 
-const HomeScreen = () => {
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const handleTimeOut = setTimeout(() => {
-      setLoading(false);
-    }, 5000);
-    return () => clearTimeout(handleTimeOut);
-  }, []);
-  if (loading) {
-    return <ShimmerPlaceholder />;
-  }
+const HomeScreen = ({ navigation }: RootStackProps<'HomeScreen'>) => {
   return (
-    <View style={styles.root}>
-      <Text>index</Text>
+    <SafeAreaView style={styles.root}>
+      <View style={styles.header}>
+        <CustomText500>Employee List</CustomText500>
+        <View style={styles.headerRightContainer}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() =>
+              navigation.navigate(StackNavigationScreen.ForgotPasswordScreen)
+            }
+          >
+            <CustomText500>+</CustomText500>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}>
+            <CustomText500>/\</CustomText500>
+          </TouchableOpacity>
+        </View>
+      </View>
       <FlatList
         data={[1, 2, 3, 4, 5]}
         keyExtractor={(_, index) => index.toString()}
+        numColumns={2}
         contentContainerStyle={styles.flatListContainer}
         renderItem={({ item }) => {
           return (
@@ -31,7 +41,7 @@ const HomeScreen = () => {
           );
         }}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
